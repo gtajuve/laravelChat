@@ -10,9 +10,23 @@
                 <form id="frmTasks" name="frmTasks" class="form-horizontal" novalidate="">
 
                     <div class="form-group error">
-                        <label for="inputTask" class="col-sm-3 control-label">Message</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control has-error" id="mess" name="message" placeholder="Message" value="">
+                        <div class="row">
+                            <label for="inputTask" class="col-sm-3 control-label">Message</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control has-error" id="mess" name="message" placeholder="Message" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="inputTask" class="col-sm-3 control-label">Teams</label>
+                            <div class="col-sm-9">
+
+                                <select multiple class="form-control" id="team-edit" name="teams[]">
+
+                                    @foreach($data['teams'] as $team)
+                                        <option value={{$team->id}}>{{$team->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
 

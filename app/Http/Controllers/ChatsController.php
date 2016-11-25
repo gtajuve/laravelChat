@@ -74,7 +74,12 @@ class ChatsController extends Controller
      */
     public function show($id)
     {
-        $data=Message::findOrFail($id);
+        $data['message']=Message::findOrFail($id);
+        $teams= $data['message']->teams;
+        foreach($teams as $team){
+            $data['teams'][]=$team->id;
+        }
+//        $data['teams']=$teams;
 
         return response()->json($data);
     }
@@ -104,6 +109,7 @@ class ChatsController extends Controller
         $message->message=$input['message'];
 //        echo '<pre>'.print_r($message->message,true).'</pre>';die;
         $message->update();
+        $message->teams()->sync($input['teamsId']);
         \Session::flash('flash_message','Changed Message from  '.Auth::user()->name);
         return response()->json($message);
     }
@@ -118,6 +124,7 @@ class ChatsController extends Controller
     {
 
         $message=Message::findOrFail($id);
+        $message->teams()->detach();
         $message->delete();
         flash(Auth::user()->name.' delete message');
         return response()->json($message);

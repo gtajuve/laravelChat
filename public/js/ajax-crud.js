@@ -10,10 +10,12 @@ $(document).ready(function(){
         $.get(url + '/' + message_id, function (data) {
             //success data
             console.log(data);
-            $('#message_id').val(data.id);
-            $('#mess').val(data.message);
+            $('#message_id').val(data.message.id);
+            $('#mess').val(data.message.message);
+            $('#team-edit').val(data.teams);
+
             $('#btn-save').val("update");
-            $('#ok').val("hsdjfhjksdbfjsd");
+
 
             $('#myModal').modal('show');
         })
@@ -96,6 +98,7 @@ $(document).ready(function(){
 
         var formData = {
             message: $('#mess').val(),
+            teamsId:$('#team-edit').val()
         }
 
         //used to determine the http verb to use [add=POST], [update=PUT]
